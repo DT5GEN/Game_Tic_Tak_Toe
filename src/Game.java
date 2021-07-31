@@ -2,7 +2,7 @@ public class Game {
     public static void main(String[] args) {
 
         new MainWindow();
-        System.out.println("Game start");
+        System.out.println("\n   -= Игра запущена =- ");
     }
 
 
