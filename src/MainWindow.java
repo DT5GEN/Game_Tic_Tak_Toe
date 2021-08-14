@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 public class MainWindow extends JFrame {
 
     private static final int WIN_WIDTH = 800;
-    private static final int WIN_HEIGHT = 500;
-    private static final int WIN_POSX = 816;
-    private static final int WIN_POSY = 250;
+    private static final int WIN_HEIGHT = 800;
+    private static final int WIN_POSX = 716;
+    private static final int WIN_POSY = 200;
 
     private Settings settingsWindow;
     private GameMap gameMap;
