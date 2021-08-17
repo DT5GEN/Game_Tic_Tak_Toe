@@ -34,6 +34,8 @@ public class GameMap extends JPanel {
     private int cellWidth;
     private int cellHeight;
 
+    protected int mode;
+
 
 
     GameMap () {
@@ -42,15 +44,15 @@ public class GameMap extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+                super.mouseReleased(e);
                 update(e);
             }
         });
         initializedMap = false;
     }
 
-    void startNewGame (int mode, int fieldSizeX, int fieldSizeY,int winLength){
-
+    void startNewGame  (int mode, int fieldSizeX, int fieldSizeY,int winLength){
+        this.mode = mode;
         this.fieldSizeX = fieldSizeX;
         this.fieldSizeY = fieldSizeY;
         this.winLength = winLength;
@@ -74,7 +76,6 @@ public class GameMap extends JPanel {
     protected void paintComponent(Graphics g){
 
         super.paintComponent(g);
-        System.out.println("Отрисовался!!!");
         render(g);
 
     }
@@ -146,11 +147,29 @@ public class GameMap extends JPanel {
                     continue;
                 }
                 if (field[y][x] == DOT_HUMAN) {
-                    g.setColor(new Color(1, 100, 200));
+//
+//                    g.setColor(Color.ORANGE);
+//                    g.fillRect(x * cellWidth +30, y * cellHeight +130, cellWidth - 60, cellHeight - 265);
+//                    g.fillRect(x * cellWidth +113, y * cellHeight +30, cellWidth - 230, cellHeight - 60);
+
+                    g.setColor(new Color(0, 105, 0));
                     g.fillOval(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+                    g.setColor(Color.PINK);
+                    g.fillOval(x * cellWidth  + 37, y * cellHeight + 37, (int) (cellWidth * 0.7), (int) (cellHeight * 0.7));
+
+
                 }  else if (field[y][x] == DOT_AI) {
-                    g.setColor(Color.green);
-                    g.fillOval(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+
+                    g.setColor(Color.ORANGE);
+                    g.fillRect(x * cellWidth +30, y * cellHeight +130, cellWidth - 60, cellHeight - 265);
+                    g.fillRect(x * cellWidth +113, y * cellHeight +30, cellWidth - 230, cellHeight - 60);
+
+//                    g.setColor(Color.green);
+//                    g.fillOval(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+//                    g.setColor(new Color(0, 105, 0));
+//                    g.fillOval(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+//                    g.setColor(Color.PINK);
+//                    g.fillOval(x * cellWidth  + 37, y * cellHeight + 37, (int) (cellWidth * 0.7), (int) (cellHeight * 0.7));
                 } else {
                     throw  new RuntimeException(" Can't paint cellX = " + x + " cellY = " + y);
 
