@@ -155,7 +155,7 @@ public class GameMap extends JPanel {
                     g.setColor(new Color(0, 105, 0));
                     g.fillOval(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
                     g.setColor(Color.PINK);
-                    g.fillOval(x * cellWidth  + 37, y * cellHeight + 37, (int) (cellWidth * 0.7), (int) (cellHeight * 0.7));
+                    g.fillOval((int) (x * cellWidth + cellWidth*0.15), (int) (y * cellHeight + cellHeight*0.15), (int) (cellWidth * 0.7), (int) (cellHeight * 0.7));
 
 
                 }  else if (field[y][x] == DOT_AI) {
