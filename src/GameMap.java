@@ -160,9 +160,16 @@ public class GameMap extends JPanel {
 
                 }  else if (field[y][x] == DOT_AI) {
 
+                    g.setColor(Color.gray);
+                    g.fillRect((int) (x * cellWidth +cellWidth*0.1), (int) (y * cellHeight +cellHeight*0.45), (int) (cellWidth * 0.815), (int) (cellHeight* 0.17));
+                    g.fillRect((int) (x * cellWidth +cellWidth*0.45), (int) (y * cellHeight +cellHeight*0.1), (int) (cellWidth * 0.17), (int) (cellHeight* 0.82));
+
                     g.setColor(Color.ORANGE);
-                    g.fillRect(x * cellWidth +30, y * cellHeight +130, cellWidth - 60, cellHeight - 265);
-                    g.fillRect(x * cellWidth +113, y * cellHeight +30, cellWidth - 230, cellHeight - 60);
+                    g.fillRect((int) (x * cellWidth +cellWidth*0.1), (int) (y * cellHeight +cellHeight*0.45), (int) (cellWidth * 0.8), (int) (cellHeight* 0.15));
+                    g.fillRect((int) (x * cellWidth +cellWidth*0.45), (int) (y * cellHeight +cellHeight*0.1), (int) (cellWidth * 0.15), (int) (cellHeight* 0.8));
+
+
+   //                 g.fillRect(x * cellWidth +113, y * cellHeight +30, cellWidth - 230, cellHeight - 60);
 
 //                    g.setColor(Color.green);
 //                    g.fillOval(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
