@@ -13,7 +13,10 @@ public class GameMap extends JPanel {
 
     private static final int DOT_EMPTY = 0;
     private static final int DOT_HUMAN = 1;
+    private static final int DOT_HUM2 = 3;
     private static final int DOT_AI = 2;
+    private boolean action2player = false;
+
 
     private static final int STATE_DROW = 0;
     private static final int STATE_WIN_HUMAN = 1;
@@ -80,7 +83,101 @@ public class GameMap extends JPanel {
 
     }
 
+//     if (mode == 0){
+//        aiTurn();
+//        repaint();}
+//        else return;
+//    repaint();
+
     private void update(MouseEvent e) {
+        //     if (mode == 0){
+//        aiTurn();
+//        repaint();}
+//        else return;
+//    repaint();
+
+        if (!initializedMap) return;
+        if (isGameOver) return;
+
+        int cellX = e.getX() / cellWidth;
+        int cellY = e.getY() / cellHeight;
+
+
+        if (!isValidCell(cellX, cellY) || !isEmptyCell(cellX, cellY)) {
+            return;
+        }
+
+        field[cellY][cellX] = (!action2player && mode == 1) ? DOT_HUM2 : DOT_HUMAN;
+
+        if (checkWin(DOT_HUMAN)) {
+            setGameOver(STATE_WIN_HUMAN);
+            return;
+        }
+
+        if (isFullMap()){
+            setGameOver(STATE_DROW);
+            return;
+        }
+
+        action2player = !action2player;
+
+        if (checkWin(DOT_HUM2)) {
+            setGameOver(STATE_WIN_HUMAN);
+            return;
+        }
+
+        if (isFullMap()){
+            setGameOver(STATE_DROW);
+            return;
+        }
+
+        repaint();
+
+        if (mode == 0){
+        aiTurn();
+        repaint();
+
+        if (checkWin(DOT_AI)) {
+                setGameOver(STATE_WIN_AI);
+                return;
+        }
+
+        if (isFullMap()) {
+            setGameOver(STATE_DROW);
+            return;
+        }
+             }
+
+        if (mode == 1) {
+
+
+
+            if (!isValidCell(cellX, cellY) || !isEmptyCell(cellX, cellY)) {
+                return;
+            }
+
+            field[cellY][cellX] = DOT_HUM2;
+
+            if (checkWin(DOT_HUM2)) {
+                setGameOver(STATE_WIN_HUMAN);
+                return;
+            }
+
+            if (isFullMap()){
+                setGameOver(STATE_DROW);
+                return;
+            }
+
+            repaint();
+
+        }
+
+
+
+    }
+
+
+    protected void updateHumansMode(MouseEvent e) {
 
         if (!initializedMap) return;
         if (isGameOver) return;
@@ -104,6 +201,7 @@ public class GameMap extends JPanel {
             return;
         }
 
+
         aiTurn();
         repaint();
 
@@ -116,6 +214,7 @@ public class GameMap extends JPanel {
             return;
         }
     }
+
 
     private void render(Graphics g){
         if (!initializedMap) return;
@@ -169,18 +268,27 @@ public class GameMap extends JPanel {
                     g.fillRect((int) (x * cellWidth +cellWidth*0.45), (int) (y * cellHeight +cellHeight*0.1), (int) (cellWidth * 0.15), (int) (cellHeight* 0.8));
 
 
-   //                 g.fillRect(x * cellWidth +113, y * cellHeight +30, cellWidth - 230, cellHeight - 60);
 
-//                    g.setColor(Color.green);
-//                    g.fillOval(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-//                    g.setColor(new Color(0, 105, 0));
-//                    g.fillOval(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-//                    g.setColor(Color.PINK);
-//                    g.fillOval(x * cellWidth  + 37, y * cellHeight + 37, (int) (cellWidth * 0.7), (int) (cellHeight * 0.7));
-                } else {
+                } else if (field[y][x] == DOT_HUM2) {
+
+                    g.setColor(Color.gray);
+                    g.fillRect((int) (x * cellWidth +cellWidth*0.1), (int) (y * cellHeight +cellHeight*0.45), (int) (cellWidth * 0.815), (int) (cellHeight* 0.17));
+                    g.fillRect((int) (x * cellWidth +cellWidth*0.45), (int) (y * cellHeight +cellHeight*0.1), (int) (cellWidth * 0.17), (int) (cellHeight* 0.82));
+
+                    g.setColor(Color.green);
+                    g.fillRect((int) (x * cellWidth +cellWidth*0.1), (int) (y * cellHeight +cellHeight*0.45), (int) (cellWidth * 0.8), (int) (cellHeight* 0.15));
+                    g.fillRect((int) (x * cellWidth +cellWidth*0.45), (int) (y * cellHeight +cellHeight*0.1), (int) (cellWidth * 0.15), (int) (cellHeight* 0.8));
+
+                    ;
+
+                }
+
+                else {
                     throw  new RuntimeException(" Can't paint cellX = " + x + " cellY = " + y);
 
                 }
+
+
 
             }
 
@@ -227,6 +335,26 @@ public class GameMap extends JPanel {
         } while (!isEmptyCell(x, y));
         field [y][x] = DOT_AI;
     }
+
+
+    public  void human2Turn(MouseEvent b) {
+        if (!initializedMap) return;
+        if (isGameOver) return;
+
+        int cellX = b.getX() / cellWidth;
+        int cellY = b.getY() / cellHeight;
+        System.out.println(" х = " + cellX + " y = " + cellY);
+
+        if (!isValidCell(cellX, cellY) || !isEmptyCell(cellX, cellY)) {
+            return;
+        }
+
+        field[cellY][cellX] = DOT_HUM2;
+
+        
+    }
+    
+    
 
     private  boolean turnAIWinCell() {
         for (int i = 0; i < fieldSizeY; i++) {

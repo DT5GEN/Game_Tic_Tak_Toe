@@ -62,8 +62,8 @@ public class Settings extends JFrame {
 
     private void addGameModeSettings() {
         add(new JLabel("Выберите режим игры:"));
-        humVsAI = new JRadioButton("Человек vs. ИИ", true);
-        humVsHum = new JRadioButton("Человек vs. Человек");
+        humVsAI = new JRadioButton("Человек vs. ИИ");
+        humVsHum = new JRadioButton("Человек vs. Человек", true);
         ButtonGroup gameMode = new ButtonGroup();
         gameMode.add(humVsAI);
         gameMode.add(humVsHum);
