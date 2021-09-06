@@ -4,12 +4,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 
+@SuppressWarnings("ALL")
 public class GameMap extends JPanel {
 
     public static final int GAME_MODE_HVA = 0;
     public static final int GAME_MODE_HVH = 1;
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_CYAN = "\u001B[36m";
+
 
     private static final int DOT_EMPTY = 0;
     private static final int DOT_HUMAN = 1;
@@ -63,10 +63,7 @@ public class GameMap extends JPanel {
         isGameOver = false;
         initializedMap = true;
         repaint();
-//        System.out.println( ANSI_CYAN  + " Режим игры  - " + mode +
-//                             "\n Ширина поля  - " + fieldSizeX +
-//                              "\n Высота поля  - " + fieldSizeY +
-//                              "\n Выигрышная длина  - " + winLength + ANSI_RESET);
+
     }
 
     private void setGameOver(int gameOverState) {
@@ -83,18 +80,9 @@ public class GameMap extends JPanel {
 
     }
 
-//     if (mode == 0){
-//        aiTurn();
-//        repaint();}
-//        else return;
-//    repaint();
 
     private void update(MouseEvent e) {
-        //     if (mode == 0){
-//        aiTurn();
-//        repaint();}
-//        else return;
-//    repaint();
+
 
         if (!initializedMap) return;
         if (isGameOver) return;
@@ -177,43 +165,7 @@ public class GameMap extends JPanel {
     }
 
 
-    protected void updateHumansMode(MouseEvent e) {
 
-        if (!initializedMap) return;
-        if (isGameOver) return;
-
-        int cellX = e.getX() / cellWidth;
-        int cellY = e.getY() / cellHeight;
-        System.out.println(" х = " + cellX + " y = " + cellY);
-
-        if (!isValidCell(cellX, cellY) || !isEmptyCell(cellX, cellY)) {
-            return;
-        }
-        field[cellY][cellX] = DOT_HUMAN;
-
-        if (checkWin(DOT_HUMAN)) {
-            setGameOver(STATE_WIN_HUMAN);
-            return;
-        }
-
-        if (isFullMap()){
-            setGameOver(STATE_DROW);
-            return;
-        }
-
-
-        aiTurn();
-        repaint();
-
-        if (checkWin(DOT_AI)) {
-            setGameOver(STATE_WIN_AI);
-            return;
-        }
-        if (isFullMap()) {
-            setGameOver(STATE_DROW);
-            return;
-        }
-    }
 
 
     private void render(Graphics g){
@@ -246,10 +198,7 @@ public class GameMap extends JPanel {
                     continue;
                 }
                 if (field[y][x] == DOT_HUMAN) {
-//
-//                    g.setColor(Color.ORANGE);
-//                    g.fillRect(x * cellWidth +30, y * cellHeight +130, cellWidth - 60, cellHeight - 265);
-//                    g.fillRect(x * cellWidth +113, y * cellHeight +30, cellWidth - 230, cellHeight - 60);
+
 
                     g.setColor(new Color(0, 105, 0));
                     g.fillOval(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
@@ -279,7 +228,7 @@ public class GameMap extends JPanel {
                     g.fillRect((int) (x * cellWidth +cellWidth*0.1), (int) (y * cellHeight +cellHeight*0.45), (int) (cellWidth * 0.8), (int) (cellHeight* 0.15));
                     g.fillRect((int) (x * cellWidth +cellWidth*0.45), (int) (y * cellHeight +cellHeight*0.1), (int) (cellWidth * 0.15), (int) (cellHeight* 0.8));
 
-                    ;
+
 
                 }
 
@@ -306,17 +255,10 @@ public class GameMap extends JPanel {
         g.setFont(new Font("Times New Roman", Font.BOLD, 60));
 
         switch (stateGameOver) {
-            case STATE_DROW:
-                g.drawString("НИЧЬЯ", 230, getHeight() / 2);
-                break;
-            case STATE_WIN_HUMAN:
-                g.drawString("Ты выиграл!", 160, getHeight() / 2);
-                break;
-            case STATE_WIN_AI:
-                g.drawString("КОМП ПОБЕДИЛ!", 155, getHeight() / 2);
-                break;
-            default:
-                throw new RuntimeException("Произошла какая-то ерунда " + stateGameOver);
+            case STATE_DROW -> g.drawString("НИЧЬЯ", 230, getHeight() / 2);
+            case STATE_WIN_HUMAN -> g.drawString("Ты выиграл!", 160, getHeight() / 2);
+            case STATE_WIN_AI -> g.drawString("КОМП ПОБЕДИЛ!", 155, getHeight() / 2);
+            default -> throw new RuntimeException("Произошла какая-то ерунда " + stateGameOver);
         }
     }
 
@@ -337,23 +279,7 @@ public class GameMap extends JPanel {
     }
 
 
-    public  void human2Turn(MouseEvent b) {
-        if (!initializedMap) return;
-        if (isGameOver) return;
 
-        int cellX = b.getX() / cellWidth;
-        int cellY = b.getY() / cellHeight;
-        System.out.println(" х = " + cellX + " y = " + cellY);
-
-        if (!isValidCell(cellX, cellY) || !isEmptyCell(cellX, cellY)) {
-            return;
-        }
-
-        field[cellY][cellX] = DOT_HUM2;
-
-        
-    }
-    
     
 
     private  boolean turnAIWinCell() {

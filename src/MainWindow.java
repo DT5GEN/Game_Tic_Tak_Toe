@@ -60,9 +60,6 @@ public class MainWindow extends JFrame {
 
         add(gameMap);
 
-//        add(btnExitGame, BorderLayout.PAGE_END);
-//        add(btnStartGame, BorderLayout.BEFORE_FIRST_LINE);
-
 
         setVisible(true);
 
